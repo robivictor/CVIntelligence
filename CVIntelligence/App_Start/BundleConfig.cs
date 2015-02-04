@@ -13,7 +13,7 @@ namespace CVIntelligence
             bundles.Add(new ScriptBundle("~/bundles/myscripts").Include(
                        "~/Scripts/highlight.pack.js",
                        "~/Scripts/bootstrap-filestyle.min.js",
-                       "~/Scripts/angular.min.js"
+                       "~/Scripts/angular.js"
                        ));
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.

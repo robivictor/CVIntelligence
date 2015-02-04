@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CVIntelligence.Models;
 
 namespace CVIntelligence.Controllers
 {
@@ -11,6 +12,11 @@ namespace CVIntelligence.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public JsonResult GenerateCv(string url)
+        {
+            return Json(new PredefinedCvModel(), JsonRequestBehavior.AllowGet);
         }
 
     }
