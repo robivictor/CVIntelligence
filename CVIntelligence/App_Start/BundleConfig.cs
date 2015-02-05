@@ -11,9 +11,10 @@ namespace CVIntelligence
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
             bundles.Add(new ScriptBundle("~/bundles/myscripts").Include(
-                       "~/Scripts/highlight.pack.js",
                        "~/Scripts/bootstrap-filestyle.min.js",
-                       "~/Scripts/angular.js"
+                       // "~/Scripts/angular.min.js",
+                       //"~/Scripts/highlight.pack.js",
+                       "~/Scripts/fileuploader.js"
                        ));
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -26,8 +27,8 @@ namespace CVIntelligence
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css",
-                      "~/Content/solarized_light.css"
+                      "~/Content/site.css"
+                      //"~/Content/solarized_light.css"
                       ));
         }
     }

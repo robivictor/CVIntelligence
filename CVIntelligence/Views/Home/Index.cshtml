@@ -2,49 +2,57 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="row" ng-app="" ng-controller="CvGeneratorController">
-    <div class="container col-lg-12">
-        <div class="">
-            <h2>Let the magic happen!</h2>
-        </div>
-        <div class="">
-            <form name="generateForm" ng-submit="submitForm(generateForm.$valid)" novalidate>
-                <div class="form-group">
-                    <input type="file" ng-model="fileUrl" class="filestyle form-control" data-buttonbefore="true" required="">
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary" ng-disabled="generateForm.$invalid">Generate CV</button>
-                </div>
-            </form>
-        </div>
+@section headscripts {
+  <script src="~/Scripts/controllers.js"></script>
+}
+<div ng-app="app">
+    <div class="container">
 
-        <div class="">
-            <p>The JSON Result is here!</p>
-            <pre><code class=""><p>Hi</p>
-                </code></pre>
-        </div>
+        <div class="row col-lg-12" ng-controller="CvGeneratorController">
+            <div class="">
+                <h2>Let the magic happen!</h2>
+            </div>
+            <div class="">
+                <form name="generateForm" ng-submit="submitForm(generateForm.$valid)" novalidate="">
+                    <div class="form-group">
+                        <input type="file" nv-file-select="" uploader="uploader"  class="filestyle form-control" data-buttonbefore="true" required="" />
+                    </div>
+                    @*<button type="submit" class="btn btn-primary" ng-disabled="generateForm.$invalid">Generate</button>*@
+                </form>
+            </div>
+            <div>
+                <div ng-repeat="item in uploader.queue">
+                    <p><strong>{{ item.file.name }}</strong></p>
+                    <p ng-show="uploader.isHTML5">{{ item.file.size/1024/1024|number:2 }} MB</p>
+                    <div>
+                        <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                            <span class="glyphicon glyphicon-upload"></span> Upload
+                        </button>
+                        <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                        </button>
+                        <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                            <span class="glyphicon glyphicon-trash"></span> Remove
+                        </button>
+                    </div>
+                </div>
+                <p>Upload Progress</p>
+                <div class="progress" ng-show="uploader.queue.length!=0">
+                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                </div>
+            </div>
 
+            <div class="row col-lg-12">
+                <p>The JSON Result is here!</p>
+               
+                                <pre>
+            <code class="html">
+                                         {{result}}
+            </code>
+        </pre>
+            </div>
+        </div>
     </div>
 </div>
-@*<script>hljs.initHighlightingOnLoad();</script>*@
-<script>
-    function CvGeneratorController($scope, $http) {
-        $scope.submitForm = function(isValid) {
-            if (isValid) {
-                $http.post("@Url.Action("GenerateCv","Home")",$scope.fileUrl).success(function () {
-                    //toastr.success('Thank you for requesting.<br/> We will get back to you soon.');
-                    //$scope.registerForm.$dirty = false;
-                    //$scope.registerForm.$pristine = true;
-                    //$scope.registerForm.$submitted = false;
-                    //$scope.registerForm.$setPristine(true);
-                    $scope.fileUrl = "";
-                    $scope.GenerateForm.$setPristine();
-                }).error(function () {
-                    //toastr.error("An error occured, try again!");
-                });
+<script>hljs.initHighlightingOnLoad();</script>
 
-            }
-        };
-        
-    }
-</script>

@@ -19,6 +19,7 @@ namespace CVIntelligence.Models
         public List<string> SocialProfiles { get; set; }
         public List<Project> Projects { get; set; }
         public List<string> Education { get; set; }
+        public List<WorkExperience> Experience { get; set; }
     }
 
     public class Project

@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Family Keylogger  -  report file</title>
+<style>
+#menu{position:fixed;width:400px;height:100px;right:10px;top:10%;background:#ffe;border:1px solid #333;margin-top:-50px;padding:10px}
+#bfilters{width:70%;height:100%;float:left;padding:0}
+#searchfilter{height:50px}
+#breset{height:100%}
+#buttonreset{height:80px;width:80px;text-align:center;margin-top:10px;margin-left:24px;white-space:normal}
+#textfilter{float:left;padding-top:20px;padding-left:10px}
+input[type=text]{float:left;height:20px;margin-top:16px;margin-left:10px;padding-left:5px;width:150px}
+#buttonapply{float:none;padding-bottom:2px;margin-top:16px;margin-left:5px;height:25px;width:50px}
+#buttonkeysonly{width:258px;height:30px;margin-top:10px;margin-left:10px}
+.datablock{font-size:1.2em;padding-top:40px;padding-bottom:5px}
+.info{display:block;font-size:.8em;font-weight:100;color:#aaa}
+.wintitle{color:green}
+</style>
+</head>
+<body onLoad="RefRep()">
+<div id="menu">
+<div id="bfilters">
+<div id="searchfilter">
+<form>
+<span id="textfilter">Filter:</span> 
+<input type="text" id="fstring">
+</form> 
+<button onclick="ContentFilter()" id="buttonapply">Apply</button>
+</div>
+<div id="keysonly">
+<button onclick="HideInfo('none')" id="buttonkeysonly">Keys only</button>
+</div>
+</div>
+<div id="breset">
+<button onclick="ResetToDefault()" id="buttonreset">Reset<br>filters</button>
+</div>
+</div> <!-- end of menu -->
+
+
+
+
+<div class="datablock">
+<span class="info"><span class="wintitle"></span></span>
+<!--  BEGIN ********************************************************************************************************************************************************************************************* -->
+
+
+
+
+
+</div><div class="datablock"><span class="info">[23/10/2014, 18:45].   User: "Robi".  Window title: "<span class="wintitle">new  1 - Notepad++</span>"</span>
+Hello Jeriye You know I love very much, It my prayer to spend the rest of my life with you!
+<!--  END ********************************************************************************************************************************************************************************************* -->
+</div>
+
+
+
+
+
+
+<script language="javascript" type="text/javascript">
+
+function RefRep() {
+    var divs = window.document.getElementsByTagName('div');
+    for (var i = divs.length; i-- ;) {
+	  if (divs[i].className == 'datablock') {          
+         divs[i].innerHTML = divs[i].innerHTML.replace(/<br><br>/gi,'<br>');
+		 divs[i].innerHTML = divs[i].innerHTML.replace(/<br><br>/gi,'<br>');
+		 divs[i].innerHTML = divs[i].innerHTML.replace(/<br><br>/gi,'<br>');
+		 divs[i].innerHTML = divs[i].innerHTML.replace(/<br><br>/gi,'<br>');
+		 divs[i].innerHTML = divs[i].innerHTML.replace(/<br><br>/gi,'<br>');
+		 divs[i].innerHTML = divs[i].innerHTML.replace(/<br><br>/gi,'<br>');
+        }
+    }
+    window.scrollTo(0,999999);
+}
+
+function HideInfo(x) {
+    var divs = window.document.getElementsByTagName('div');
+    for (var i = divs.length; i-- ;) {
+	  if (divs[i].className == 'datablock') {          
+         divs[i].firstChild.style.display = x;
+        }
+    }
+    window.scrollTo(0,999999);
+}
+
+function ContentFilter() {
+	var x = window.document.getElementById('fstring').value;
+    var divs = window.document.getElementsByTagName('div');
+    for (var i = divs.length; i-- ;) {		  
+	    if(divs[i].className == 'datablock') {			  	
+            if(divs[i].innerHTML.search(x) != -1) 
+	            {
+                divs[i].style.display = "block";
+
+                }
+            else
+                {
+                divs[i].style.display = "none";
+
+                }
+        }
+	}
+    window.scrollTo(0,999999);
+}
+
+function ResetToDefault() {
+     window.document.getElementById('fstring').value = '';
+     ContentFilter();
+     HideInfo('block');
+     window.scrollTo(0,999999);
+}
+
+
+
+</script>
+
+
+
+
+
+</body>
+</html>
