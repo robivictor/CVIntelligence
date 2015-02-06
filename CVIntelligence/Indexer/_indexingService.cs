@@ -9,7 +9,7 @@ namespace CVIntelligence.Indexer
 {
     public interface IIndexingService
     {
-        string Search(HtmlDocument searchable, int key);
+        string Search(string searchable, int key);
 
     }
 }

@@ -37,7 +37,7 @@
                     </div>
                 </div>
 
-                <p>Upload Progress</p>
+                <p ng-show="uploader.queue.length!=0">Upload Progress</p>
                 <div class="progress" ng-show="uploader.queue.length!=0">
                     <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                 </div>

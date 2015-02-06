@@ -9,71 +9,114 @@ namespace CVIntelligence.Indexer
 {
     public class IndexingService : IIndexingService
     {
-        private List<KeyWordSearchResult> ContainsAnyOfThese(string source, IEnumerable<string> keywords  )
+        private List<KeyWordSearchResult> ContainsAnyOfThese(string source, IEnumerable<string> keywords)
         {
             var result = new List<KeyWordSearchResult>();
-
+            var tst = source.ToLower();
             foreach (var keyword in keywords)
             {
                 var r = new KeyWordSearchResult();
-                r.Found  = source.ToLower().Split().Contains(keyword.ToLower());
-                r.KeyWord = keyword;
+                r.Found = tst.Contains(keyword.ToLower());
+                r.KeyWord = keyword.ToLower();
                 result.Add(r);
             }
             return result;
         }
 
-        public string Search(HtmlDocument searchable, int key)
+        private List<HtmlNode> LocateNodes(List<KeyWordSearchResult> searchResults, HtmlDocument searchable)
+        {
+            var nodes = new List<HtmlNode>();
+
+            if (searchResults.Exists(t => t.Found == true))
+            {
+                foreach (var searchResult in searchResults.Where(t => t.Found))
+                {
+                    //var r = searchable.DocumentNode.SelectNodes("//*[contains(text()[1],'" + searchResult.KeyWord + "')]");
+                    //var r = searchable.DocumentNode.SelectNodes("//text()[contains(.,'" + searchResult.KeyWord + "')]/..");
+                    var r = searchable.DocumentNode.SelectNodes("//text()[contains(.,'" + searchResult.KeyWord + "')]/..");
+                    //var r =searchable.DocumentNode.Descendants()
+                    //        .Where(d => d.InnerText.ToLower().Contains(searchResult.KeyWord.ToLower()));
+                    if (r != null)
+                    {
+                        nodes.Add(r.First().ParentNode);
+                    }
+                }
+            }
+            return nodes;
+        }
+
+
+        public string Search(string html, int key)
         {
             var result = "";
+            var searchable = new HtmlDocument();
+            searchable.LoadHtml(html.ToLower());
+
+            var htmlnodes = searchable.DocumentNode.Descendants().Where(n =>
+                n.NodeType == HtmlNodeType.Text &&
+                n.ParentNode.Name != "script" &&
+                n.ParentNode.Name != "style");
+
+            var innerttext = htmlnodes.Aggregate("", (current, node) => current + node.InnerText);
+            innerttext = innerttext.Replace("\n", "");
+
+
+            List<KeyWordSearchResult> content;
+            List<HtmlNode> nds;
 
             switch (key)
             {
                 case Constants.FIRSTNAME:
-
-                    if (this.ContainsAnyOfThese(searchable.ToString(), SearchKeys.FIRSTNAME).Exists(t => t.Found == true))
                     {
-                        var content = this.ContainsAnyOfThese(searchable.ToString(), SearchKeys.FIRSTNAME);
-                        
-                        foreach (var searchResult in content)
+                        content = this.ContainsAnyOfThese(innerttext, SearchKeys.FIRSTNAME);
+                        nds = LocateNodes(content, searchable);
+                        if (nds.Any())
                         {
-                            //searchable.DocumentNode.All("a").Where(t => t.InnerText.Contains(searchResult.KeyWord));
-                            var r =
-                                searchable.DocumentNode.Descendants()
-                                    .First(t => t.InnerText.ToLower().Split().Contains(searchResult.KeyWord))
-                                    .ChildNodes;
+                            result = nds.First().NextSibling.NextSibling.InnerText;
                         }
-                        result = "Robel";
+                        break;
                     }
-                    break;
                 case Constants.MIDDLENAME:
-
-                    if (this.ContainsAnyOfThese(searchable.ToString(), SearchKeys.MIDDLENAME).Exists(t => t.Found == true))
                     {
-                        result = "Tessema";
+                        content = this.ContainsAnyOfThese(innerttext, SearchKeys.MIDDLENAME);
+                        nds = LocateNodes(content, searchable);
+                        if (nds.Any())
+                        {
+                            result = nds.First().NextSibling.NextSibling.InnerText;
+                        }
+                        break;
                     }
-                    break;
                 case Constants.LASTNAME:
-
-                    if (this.ContainsAnyOfThese(searchable.ToString(), SearchKeys.LASTNAME).Exists(t=>t.Found==true))
                     {
-                        result = "Herarso";
+                        content = this.ContainsAnyOfThese(innerttext, SearchKeys.LASTNAME);
+
+                        nds = LocateNodes(content, searchable);
+                        if (nds.Any())
+                        {
+                            result = nds.First().NextSibling.NextSibling.InnerText;
+                        }
+                        break;
                     }
-                    break;
                 case Constants.TITLE:
-
-                    if (this.ContainsAnyOfThese(searchable.ToString(), SearchKeys.TITLE).Exists(t => t.Found == true))
                     {
-                        result = "Computer Engineer";
+                        content = this.ContainsAnyOfThese(innerttext, SearchKeys.TITLE);
+                        nds = LocateNodes(content, searchable);
+                        if (nds.Any())
+                        {
+                            result = nds.First().NextSibling.NextSibling.InnerText;
+                        }
+                        break;
                     }
-                    break;
                 case Constants.SUMMARY:
-
-                    if (this.ContainsAnyOfThese(searchable.ToString(), SearchKeys.SUMMARY).Exists(t => t.Found == true))
                     {
-                        result = "An enthusiasit computer engineer";
+                        content = this.ContainsAnyOfThese(innerttext, SearchKeys.SUMMARY);
+                        nds = LocateNodes(content, searchable);
+                        if (nds.Any())
+                        {
+                            result = nds.First().NextSibling.NextSibling.InnerText;
+                        }
+                        break;
                     }
-                    break;
             }
             return result;
         }

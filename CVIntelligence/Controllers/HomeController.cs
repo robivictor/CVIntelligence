@@ -90,13 +90,12 @@ namespace CVIntelligence.Controllers
                 });
             }
 
-            var web = new HtmlWeb();
-            var searchable = new HtmlDocument();
-            searchable.LoadHtml(r.First().Content);
-            
+            var html = r.First().Content;            
             var p = new PredefinedCvModel();
-            p.FirstName = _indexingService.Search(searchable, 1);
-            p.LastName = _indexingService.Search(searchable, 2);
+
+            p.FirstName = _indexingService.Search(html, Constants.FIRSTNAME);
+            p.MiddleName = _indexingService.Search(html, Constants.MIDDLENAME);
+            p.LastName = _indexingService.Search(html, Constants.LASTNAME);
 
             return Json(p, JsonRequestBehavior.AllowGet);
         }

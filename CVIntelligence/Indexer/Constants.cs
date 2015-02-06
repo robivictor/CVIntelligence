@@ -20,27 +20,31 @@ namespace CVIntelligence.Indexer
         
         public static List<string> FIRSTNAME = new string[]
         {
-            "Name",
-            "FirstName",
-            "SureName", 
-            "Sure Name",
-            "First Name"
+            "name",
+            "firstname",
+            "given name",
+            "first name",
+            "forename"
         }.ToList();
 
         public static List<string> MIDDLENAME = new string[]
         {
-            "Name",
-            "Middle Name",
-            "MiddleName", 
-            "Father's Name",
-            "Middle Ininitial"
+            "name",
+            "middle name",
+            "middlename", 
+            "middle initial"
+            
         }.ToList();
 
         public static List<string> LASTNAME = new string[]
         {
             "Name",
-            "Last Name",
-            "Family Name"
+            "last name",
+            "lastname",
+            "family name",
+            "familyname",
+            "sure name",
+            "surename",
         }.ToList();
 
         public static List<string> TITLE = new string[]
@@ -58,9 +62,6 @@ namespace CVIntelligence.Indexer
         {
             "Gender",
             "Sex",
-            "Male", 
-            "Female"
         }.ToList();
-       
     }
 }
