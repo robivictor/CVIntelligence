@@ -4,12 +4,13 @@ angular.module('app', ['angularFileUpload'])
     
     .controller('CvGeneratorController', ['$scope', 'FileUploader', function($scope, FileUploader) {
 
-        $scope.result = '';
+        $scope.result ='';
+        $scope.source ='';
 
         var uploader = $scope.uploader = new FileUploader({
             url: '/Home/UploadFile'
         });
-
+        
         // FILTERS
         uploader.filters.push({
             name: 'customFilter',
@@ -17,13 +18,6 @@ angular.module('app', ['angularFileUpload'])
                 return this.queue.length < 1;
             }
         });
-
-        //uploader.filters.push({
-        //    name: 'FileTypeFilter',
-        //    fn: function (item) {
-        //        return item.type == 'text/html' || item.type == 'text/plain';
-        //    }
-        //});
 
         // CALLBACKS
         uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {

@@ -23,7 +23,7 @@
             <div>
                 <div ng-repeat="item in uploader.queue">
                     <p><strong>{{ item.file.name }}</strong></p>
-                    <p ng-show="uploader.isHTML5">{{ item.file.size/1024/1024|number:2 }} MB</p>
+                    <p ng-show="uploader.isHTML5">{{ item.file.size/1024/1024|number:2}} MB</p>
                     <div>
                         <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
                             <span class="glyphicon glyphicon-upload"></span> Upload
@@ -36,23 +36,32 @@
                         </button>
                     </div>
                 </div>
+
                 <p>Upload Progress</p>
                 <div class="progress" ng-show="uploader.queue.length!=0">
                     <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                 </div>
+
             </div>
 
-            <div class="row col-lg-12">
+            <div class="row col-lg-6" style="padding: 25px">
+                <p>The Source documnet</p>
+                <pre>
+                    <code class="html">
+                            {{uploader.queue.first.file.content}}
+                    </code>
+                </pre>
+            </div>
+            
+            <div class="row col-lg-6" style="padding: 25px">
                 <p>The JSON Result is here!</p>
-               
-                                <pre>
-            <code class="html">
-                                         {{result}}
-            </code>
-        </pre>
+                <pre>
+                <code class="html">
+                            {{result}}
+                    </code>
+                </pre>
             </div>
         </div>
     </div>
 </div>
 <script>hljs.initHighlightingOnLoad();</script>
-

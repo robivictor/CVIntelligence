@@ -12,7 +12,7 @@ namespace CVIntelligence
                         "~/Scripts/jquery-{version}.js"));
             bundles.Add(new ScriptBundle("~/bundles/myscripts").Include(
                        "~/Scripts/bootstrap-filestyle.min.js",
-                       // "~/Scripts/angular.min.js",
+                       "~/Scripts/angular.min.js",
                        //"~/Scripts/highlight.pack.js",
                        "~/Scripts/fileuploader.js"
                        ));

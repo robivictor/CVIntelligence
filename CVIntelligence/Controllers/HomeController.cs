@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CVIntelligence.Indexer;
 using CVIntelligence.Models;
+using HtmlAgilityPack;
 using Newtonsoft.Json.Schema;
 
 namespace CVIntelligence.Controllers
@@ -17,8 +19,16 @@ namespace CVIntelligence.Controllers
         public string Type { get; set; }
     }
 
+    
     public class HomeController : Controller
     {
+        private readonly IIndexingService _indexingService;
+
+        public HomeController(IIndexingService indexingService)
+        {
+            this._indexingService = indexingService;
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -50,7 +60,7 @@ namespace CVIntelligence.Controllers
                 SocialProfiles = null,
                 Summary = "The best engineer ever existed"
             };
-          
+             
             return Json(s, JsonRequestBehavior.AllowGet);
         }
 
@@ -79,18 +89,21 @@ namespace CVIntelligence.Controllers
                     Content = new StreamReader(hpf.InputStream).ReadToEnd()
                 });
             }
-            for (int i = 0; i < 10; i++)
-            {
-                r.Add(new ViewDataUploadFilesResult()
-                {
-                    Name = "",
-                    Length = 14,
-                    Type = "",
-                    Content = ""
-                });   
-            }
-            return Json(new PredefinedCvModel(), JsonRequestBehavior.AllowGet);
+
+            var web = new HtmlWeb();
+            var searchable = new HtmlDocument();
+            searchable.LoadHtml(r.First().Content);
+            
+            var p = new PredefinedCvModel();
+            p.FirstName = _indexingService.Search(searchable, 1);
+            p.LastName = _indexingService.Search(searchable, 2);
+
+            return Json(p, JsonRequestBehavior.AllowGet);
         }
-        
+
+        public ActionResult html()
+        {
+            return View();
+        }
     }
 }

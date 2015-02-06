@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "html";
+}
+
+<div ng-app="">
+    <div class="container">
+        <div class="row" ng-controller="CVController">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <td>First Name</td>
+                        <td>{{person.FirstName}}</td>
+                    </tr>
+                    <tr>
+                    <tr>
+                        <td>Middle Name</td>
+                        <td>{{person.MiddleName}}</td>
+                    </tr>
+                    <tr>
+                        <td>Middle Name</td>
+                        <td>{{person.LastName}}</td>
+                    </tr>
+                </tbody>
+            </table>        
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function CVController($scope, $http) {
+        $scope.person = "";
+
+        $http.post("@Url.Action("GenerateCv", "Home")", { url: "" }).success(function (data) {
+            $scope.person = data;
+        });
+    }
+
+</script>
+
