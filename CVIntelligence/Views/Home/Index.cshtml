@@ -15,7 +15,7 @@
             <div class="">
                 <form name="generateForm" ng-submit="submitForm(generateForm.$valid)" novalidate="">
                     <div class="form-group">
-                        <input type="file" nv-file-select="" uploader="uploader"  class="filestyle form-control" data-buttonbefore="true" required="" />
+                        <input type="file" nv-file-select="" uploader="uploader" accept="text/html" class="filestyle form-control" data-buttonbefore="true" required="" />
                     </div>
                     @*<button type="submit" class="btn btn-primary" ng-disabled="generateForm.$invalid">Generate</button>*@
                 </form>
@@ -44,16 +44,7 @@
 
             </div>
 
-            <div class="row col-lg-6" style="padding: 25px">
-                <p>The Source documnet</p>
-                <pre>
-                    <code class="html">
-                            {{uploader.queue.first.file.content}}
-                    </code>
-                </pre>
-            </div>
-            
-            <div class="row col-lg-6" style="padding: 25px">
+           <div class="row col-lg-12" style="padding: 25px">
                 <p>The JSON Result is here!</p>
                 <pre>
                 <code class="html">
