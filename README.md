@@ -8,7 +8,7 @@ CVIntelligence is done with ASP.NET MVC5(C#). Most of the client side is done wi
 
 I started out with .HTML file types. <b>Does any one want to build a CV in html? Unless He is a geek, like you and me:)</b> Working with html is fun,it gave me a considerable knowledge. 
 
-All it does by now is upload .html files and try to find for the keywords predefined for every possible CV attributes then it returns the best it can. I know it doesn't do much but that is how everything starts!!
+All it does by now is upload .html files and try to find for the keywords predefined for every possible CV attributes then it returns the best it can. I know it doesn't do much but that is how everything starts!! See it live on http://cvintelligence.azurewebsites.net/
 
 <h2>Wish me luck!</h2>
 <b>I wish that pretty damn machine(Surface PRO 3 is mine!!) You hear me Jugdes?? Send that machine to Ethiopia!!!</b> 
